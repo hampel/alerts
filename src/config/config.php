@@ -7,24 +7,47 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Alert Levels
+	| Alert Level Map
 	|--------------------------------------------------------------------------
 	|
-	| The default sort of alert levels which can be called as functions on the
-	| AlertMessageBag class. This gives a convenient way to add certain type's
-	| of messages.
+	| The alert levels and corresponding class maps to use in view rendering.
+	|
+	| These alert levels can be used as a convenient shortcut for adding
+	| messages of a particular type:
 	|
 	| For example:
 	|
 	|     Alerts::info($message);
 	|
+	| Any session messages using keys other than those listed below, will be
+	| ignored when rendering the alert view.
+	|
+	| The array value in the map should correspond to the name of the class to
+	| be used when rendering the view for an alert of that type.
+	|
+	| For example, to configure alerts for Bootstrap, change the config to match
+	| the following:
+	|
+	| 'levels' => array(
+	|     'info' => 'info',
+	|     'warning' => 'warning',
+	|     'error' => 'danger',
+	|     'success' => 'success'
+	| ),
+	|
+	| The default values provided are intended to work with Foundation, with
+	| 	info = a "secondary" alert
+	| 	warning = a "standard" alert
+	| 	error = an "alert" alert
+	| 	success = a "success" alert
+	|
 	*/
 
-	'levels' => array(
-		'info',
-		'warning',
-		'error',
-		'success',
+	'level_map' => array(
+		'info' => 'secondary',
+		'warning' => '',
+		'error' => 'alert',
+		'success' => 'success',
 	),
 
 	/*

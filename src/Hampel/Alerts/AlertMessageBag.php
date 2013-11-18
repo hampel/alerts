@@ -26,7 +26,7 @@ class AlertMessageBag extends MessageBag {
 	 */
 	protected function getLevels()
 	{
-		return (array) Config::get('alerts::levels');
+		return array_keys(Config::get('alerts::level_map'));
 	}
 
 	/**
@@ -43,13 +43,15 @@ class AlertMessageBag extends MessageBag {
 	{
 		$view = "";
 
+		$level_map = Config::get('alerts::level_map');
+
 		foreach ($this->getMessages() as $type => $messages)
 		{
-			if (in_array($type, $this->getLevels()))
+			if (in_array($type, array_keys($level_map)))
 			{
 				foreach ($messages as $message)
 				{
-					$alert_type = $type;
+					$alert_type = $level_map[$type];
 					$alert_text = $message;
 
 					$view .= View::make(Config::get('alerts::alert_template'), compact('alert_type', 'alert_text'))->render();
