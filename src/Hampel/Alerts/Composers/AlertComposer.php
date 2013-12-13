@@ -5,6 +5,7 @@
 
 use Illuminate\Session\Store;
 use Illuminate\Config\Repository;
+use Illuminate\View\View;
 use Hampel\Alerts\AlertMessageBag;
 
 class AlertComposer
@@ -35,7 +36,7 @@ class AlertComposer
 		$this->session = $session;
 	}
 
-	public function compose($view)
+	public function compose(View $view)
 	{
 		$alerts = "";
 		$session_key = $this->config->get('alerts::session_key');
@@ -44,7 +45,6 @@ class AlertComposer
 		if ($this->session->has($session_key))
 		{
 			$messages = $this->session->get($session_key);
-
 			if ($messages instanceof AlertMessageBag)
 			{
 				$alerts = $messages->renderView();
