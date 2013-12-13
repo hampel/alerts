@@ -3,51 +3,46 @@
  * 
  */
 
+use Illuminate\Container\Container;
 use Illuminate\Session\Store;
 use Illuminate\Config\Repository;
 use Illuminate\View\View;
-use Hampel\Alerts\AlertMessageBag;
 
 class AlertComposer
 {
 	/**
-	 * Illuminate's Session Store.
+	 * The application container instance.
 	 *
-	 * @var \Illuminate\Session\Store
+	 * @var \Illuminate\Container\Container
 	 */
-	protected $session;
+	protected $app;
 
 	/**
-	 * Illuminate's Config Repository.
+	 * Initialize the AlertComposer class.
 	 *
-	 * @var \Illuminate\Config\Repository
+	 * @param  \Illuminate\Container\Container  $app
 	 */
-	protected $config;
-
-	/**
-	 * Initialize the AlertMessageBag class.
-	 *
-	 * @param  \Illuminate\Session\Store  $session
-	 * @param  \Illuminate\Config\Repository $config
-	 */
-	public function __construct(Store $session, Repository $config)
+	public function __construct(Container $app)
 	{
-		$this->config = $config;
-		$this->session = $session;
+		$this->app = $app;
 	}
 
 	public function compose(View $view)
 	{
 		$alerts = "";
-		$session_key = $this->config->get('alerts::session_key');
-		$variable_name = $this->config->get('alerts::view_variable');
+		$session_key = $this->app['config']->get('alerts::session_key');
+		$variable_name = $this->app['config']->get('alerts::view_variable');
 
-		if ($this->session->has($session_key))
+		if ($this->app['session.store']->has($session_key))
 		{
-			$messages = $this->session->get($session_key);
-			if ($messages instanceof AlertMessageBag)
+
+			$messages = $this->app['session.store']->get($session_key);
+
+			if (is_array($messages))
 			{
-				$alerts = $messages->renderView();
+				$bag = $this->app->make('alerts');
+				$bag->merge($messages);
+				$alerts = $bag->renderView();
 			}
 		}
 

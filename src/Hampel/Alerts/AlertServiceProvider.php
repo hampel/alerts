@@ -42,13 +42,15 @@ class AlertServiceProvider extends ServiceProvider {
 		// Register the AlertsMessageBag class.
 		$this->app->bind('alerts', function($app)
 		{
-			return new AlertMessageBag;
+			$messagebag = new AlertMessageBag;
+			$messagebag->setContainer($app);
+			return $messagebag;
 		});
 
 		// Register the AlertComposer class.
 		$this->app->bind('Hampel\Alerts\Composers\AlertComposer', function($app)
 		{
-			return new AlertComposer($app['session.store'], $app['config']);
+			return new AlertComposer($app);
 		});
 	}
 

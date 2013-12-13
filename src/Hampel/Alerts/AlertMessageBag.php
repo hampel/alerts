@@ -1,20 +1,41 @@
 <?php namespace Hampel\Alerts;
 
-use Config, Lang, Session, View;
 use BadMethodCallException;
 use BadFunctionCallException;
 use Illuminate\Support\MessageBag;
-use Illuminate\Session\Store;
-use Illuminate\Config\Repository;
+use Illuminate\Container\Container;
 
 class AlertMessageBag extends MessageBag {
+
+	/**
+	 * The application container instance.
+	 *
+	 * @var \Illuminate\Container\Container
+	 */
+	protected $app;
+
+	/**
+	 * Set the IoC container instance.
+	 *
+	 * @param  \Illuminate\Container\Container $app
+	 * @return void
+	 */
+	public function setContainer(Container $app)
+	{
+		$this->app = $app;
+
+		return $this;
+	}
 
 	/**
 	 * Store the messages in the current session.
 	 */
 	public function flash()
 	{
-		Session::flash($this->getSessionKey(), $this);
+		if (isset($this->app))
+		{
+			$this->app['session.store']->flash($this->getSessionKey(), $this->getMessages());
+		}
 
 		return $this;
 	}
@@ -26,9 +47,13 @@ class AlertMessageBag extends MessageBag {
 	 */
 	protected function getLevels()
 	{
-		return array_keys(Config::get('alerts::level_map'));
-	}
+		if (isset($this->app))
+		{
+			return array_keys($this->app['config']->get('alerts::level_map'));
+		}
 
+		return array();
+	}
 	/**
 	 * Returns the session key from the config.
 	 *
@@ -36,47 +61,65 @@ class AlertMessageBag extends MessageBag {
 	 */
 	public function getSessionKey()
 	{
-		return Config::get('alerts::session_key');
+		if (isset($this->app))
+		{
+			return $this->app['config']->get('alerts::session_key');
+		}
+
+		return "";
 	}
 
 	public function renderView()
 	{
 		$view = "";
 
-		$level_map = Config::get('alerts::level_map');
-
-		foreach ($this->getMessages() as $type => $messages)
+		if (isset($this->app))
 		{
-			if (in_array($type, array_keys($level_map)))
-			{
-				foreach ($messages as $message)
-				{
-					$alert_type = $level_map[$type];
-					$alert_text = $message;
+			$level_map = $this->app['config']->get('alerts::level_map');
 
-					$view .= View::make(Config::get('alerts::alert_template'), compact('alert_type', 'alert_text'))->render();
+			foreach ($this->getMessages() as $type => $messages)
+			{
+				if (in_array($type, array_keys($level_map)))
+				{
+					foreach ($messages as $message)
+					{
+						$alert_type = $level_map[$type];
+						$alert_text = $message;
+
+						$view .= $this->app['view']->make(
+							$this->app['config']->get('alerts::alert_template'),
+							compact('alert_type', 'alert_text')
+						)->render();
+					}
 				}
 			}
+
+			return $view;
 		}
 
-		return $view;
+		return null;
 	}
+
 
 	protected function translateMessage($message, $replacements)
 	{
-		if (Lang::has($message))
+		if (isset($this->app))
 		{
-			// if there is a language entry which matches this message, use that instead
 
-			if (isset($replacements) AND is_array($replacements))
+			if ($this->app['translator']->has($message))
 			{
-				// there are replacements specified
-				$message = Lang::get($message, $replacements);
-			}
-			else
-			{
-				// no replacement, just a plain language entry
-				$message = Lang::get($message);
+				// if there is a language entry which matches this message, use that instead
+
+				if (isset($replacements) AND is_array($replacements))
+				{
+					// there are replacements specified
+					$message = $this->app['translator']->get($message, $replacements);
+				}
+				else
+				{
+					// no replacement, just a plain language entry
+					$message = $this->app['translator']->get($message);
+				}
 			}
 		}
 
