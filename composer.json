@@ -41,6 +41,5 @@
         "psr-0": {
             "Hampel\\Alerts": "src/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
