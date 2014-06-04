@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+1.1.2 (2014-06-04)
+------------------
+
+* removed minimum-stability line from composer.json
+* remove phpunit as dev dependency
+
 1.1.1 (2013-12-14)
 ------------------
 
