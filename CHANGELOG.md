@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+1.2.0 (2014-06-04)
+------------------
+
+* make unit tests 4.2 compatible
+* framework minimum version now 4.2
+
 1.1.2 (2014-06-04)
 ------------------
 

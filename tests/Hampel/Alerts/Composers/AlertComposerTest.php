@@ -1,7 +1,7 @@
 <?php namespace Hampel\Alerts\Composers;
 
 use Illuminate\View\View;
-use Illuminate\View\Environment;
+use Illuminate\View\Factory;
 use Mockery;
 
 class AlertComposerTest extends \PHPUnit_Framework_TestCase
@@ -24,7 +24,7 @@ class AlertComposerTest extends \PHPUnit_Framework_TestCase
 		$container->shouldReceive('offsetGet')->twice()->with('session.store')->andReturn($session);
 		$container->shouldReceive('offsetGet')->twice()->with('config')->andReturn($config);
 
-		$env = $this->getEnvironment();
+		$env = $this->getFactory();
 		$env->getDispatcher()->shouldReceive('listen')->once()->with('composing: foo', Mockery::type('Closure'));
 		$env->setContainer($container);
 
@@ -50,7 +50,7 @@ class AlertComposerTest extends \PHPUnit_Framework_TestCase
 	protected function getView()
 	{
 		return new View(
-			Mockery::mock('Illuminate\View\Environment'),
+			Mockery::mock('Illuminate\View\Factory'),
 			Mockery::mock('Illuminate\View\Engines\EngineInterface'),
 			'view',
 			'path',
@@ -59,9 +59,9 @@ class AlertComposerTest extends \PHPUnit_Framework_TestCase
 	}
 
 
-	protected function getEnvironment()
+	protected function getFactory()
 	{
-		return new Environment(
+		return new Factory(
 			Mockery::mock('Illuminate\View\Engines\EngineResolver'),
 			Mockery::mock('Illuminate\View\ViewFinderInterface'),
 			Mockery::mock('Illuminate\Events\Dispatcher')
