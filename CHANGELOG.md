@@ -1,11 +1,21 @@
 CHANGELOG
 =========
 
+1.2.1 (2014-07-02)
+------------------
+
+* documentation error - need to getMessages() when using with()
+
 1.2.0 (2014-06-04)
 ------------------
 
 * make unit tests 4.2 compatible
 * framework minimum version now 4.2
+
+1.1.3 (2014-07-02)
+------------------
+
+* documentation error - need to getMessages() when using with()
 
 1.1.2 (2014-06-04)
 ------------------
