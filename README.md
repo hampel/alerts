@@ -98,7 +98,7 @@ key used in the config file `'alerts::session_key'`, or use the helper function 
 	Alert::success('Operation succeeded')->flash();
 
 	// return a redirect response and flash the messages
-	return Redirect::to('myroute')->with(Alert::getSessionKey(), Alert::error('There was a problem'));
+	return Redirect::to('myroute')->with(Alert::getSessionKey(), Alert::error('There was a problem')->getMessages());
 
 	// you can always just do it all manually
 	$messages = new AlertMessageBag;
