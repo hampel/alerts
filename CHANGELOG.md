@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+1.1.4 (2014-07-03)
+------------------
+
+* removed redundant use code
+* changed framework version requirements to ">=4.0,<4.2" for 1.1 branch
+
 1.1.3 (2014-07-02)
 ------------------
 
