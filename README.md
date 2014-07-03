@@ -1,7 +1,8 @@
 Alerts for Laravel
 ==================
 
-This package provides session-driven alerts for Laravel and provides alert templates for both Bootstrap and Foundation based front-end frameworks.
+This package provides session-driven alerts for Laravel and provides alert templates for both Bootstrap and Foundation
+based front-end frameworks.
 
 By [Simon Hampel](http://hampelgroup.com/).
 
@@ -15,9 +16,13 @@ Require the package via Composer in your `composer.json`
 	:::json
     {
         "require": {
-            "hampel/alerts": "1.1.*"
+            "hampel/alerts": "~1.0"
         }
     }
+
+Note that the 1.1 branch will work on Laravel framework versions 4.0.* and 4.1.*, while the 1.2 branch is tied to the
+4.2.* version of the framework. The functionality is identical - it is only the unit tests which actually differ between
+the versions
 
 Run Composer to update the new requirement.
 
@@ -26,7 +31,8 @@ Run Composer to update the new requirement.
 
 The package is built to work with the Laravel 4 Framework.
 
-Open your Laravel config file `config/app.php` and add the following service providers in the `$providers` array, if they don't already exist:
+Open your Laravel config file `config/app.php` and add the following service providers in the `$providers` array, if
+they don't already exist:
 
 	:::php
     "providers" => array(
@@ -57,8 +63,8 @@ The config file can then be found in `app/config/packages/hampel/alerts/config.p
 Usage
 -----
 
-The alerts functionality is based around a class which extends the MessageBag implementation provided by Laravel. This AlertMessageBag provides
-additional services to add alert messages and render alert views.
+The alerts functionality is based around a class which extends the MessageBag implementation provided by Laravel. This
+AlertMessageBag provides additional services to add alert messages and render alert views.
 
 We can easily add alerts to the MessageBag using the built-in functionality:
 
@@ -73,9 +79,9 @@ You can add a message to the MessageBag using a shorthand function corresponding
  	Alert::error('An error message');
  	Alert::success('Operation succeeded');
 
-If you prefer to use the language translation files for your messages, you can simply specify a translation key and the MessageBag will
-substitute the corresponding language entry and optionally apply any replacements too. Note that this only works if you use the shorthand
-functions to add your messages.
+If you prefer to use the language translation files for your messages, you can simply specify a translation key and the
+MessageBag will substitute the corresponding language entry and optionally apply any replacements too. Note that this
+only works if you use the shorthand functions to add your messages.
 
  	:::php
  	Alert::success('auth.login.success');
@@ -89,9 +95,10 @@ Alternatively, you could apply the translation yourself:
 
 To pass the MessageBag to a view response, you will need to flash the data to the session.
 
-You can do this in several ways - the AlertMessageBag class provides a `flash` function, which sets the session key for you automatically, or
-you could do it as part of a redirect response. If not using the built-in `flash` function, make sure you specify the name of the session
-key used in the config file `'alerts::session_key'`, or use the helper function `Alerts::getSessionKey()`:
+You can do this in several ways - the AlertMessageBag class provides a `flash` function, which sets the session key for
+you automatically, or you could do it as part of a redirect response. If not using the built-in `flash` function, make
+sure you specify the name of the session key used in the config file `'alerts::session_key'`, or use the helper function
+`Alerts::getSessionKey()`:
 
 	:::php
 	// flash the messages to the session
@@ -105,17 +112,20 @@ key used in the config file `'alerts::session_key'`, or use the helper function 
 	$messages->add('info', Lang::get('something.happened.info'));
 	Session::flash(Config::get('alerts::session_key', $messagebag); // make sure you pass the whole AlertMessageBag to the session!
 
-The package provides a view composer which automatically renders alerts whenever the view is called. There are several ways to do this.
+The package provides a view composer which automatically renders alerts whenever the view is called. There are several
+ways to do this.
 
-By default, there is a Blade template `alerts.blade.php` which you can include in your base view. The view composer is configured by default
-to watch this view and render the alerts whenever this view is rendered. To use, simply `@include` the template in your view:
+By default, there is a Blade template `alerts.blade.php` which you can include in your base view. The view composer is
+configured by default to watch this view and render the alerts whenever this view is rendered. To use, simply `@include`
+the template in your view:
 
 	:::php
 	@include('alerts::alerts')
 
-If you prefer to do it yourself, you can change the configuration of the view composer to watch a different view, perhaps even your `layouts.base`
-view. The composer will generate the alert data and bind it to the configured variable name, which you can then simply echo out in your view.
+If you prefer to do it yourself, you can change the configuration of the view composer to watch a different view,
+perhaps even your `layouts.base` view. The composer will generate the alert data and bind it to the configured variable
+name, which you can then simply echo out in your view.
 
-There are templates provided for both Bootstrap and Foundation, although Foundation is the default - you'll need to change the configuration
-setting if you use Bootstrap. Alternatively, you can provide your own view template to use to render each alert message.  Refer to the
-configuration file for more information on what the settings do.
+There are templates provided for both Bootstrap and Foundation, although Foundation is the default - you'll need to
+change the configuration setting if you use Bootstrap. Alternatively, you can provide your own view template to use to
+render each alert message.  Refer to the configuration file for more information on what the settings do.
