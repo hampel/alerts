@@ -1,8 +1,6 @@
 <?php namespace Hampel\Alerts;
 
-use View;
 use Illuminate\Support\ServiceProvider;
-use Hampel\Alerts\AlertMessageBag;
 use Hampel\Alerts\Composers\AlertComposer;
 
 class AlertServiceProvider extends ServiceProvider {
