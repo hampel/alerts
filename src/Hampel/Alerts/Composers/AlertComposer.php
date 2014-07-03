@@ -4,8 +4,6 @@
  */
 
 use Illuminate\Container\Container;
-use Illuminate\Session\Store;
-use Illuminate\Config\Repository;
 use Illuminate\View\View;
 
 class AlertComposer
