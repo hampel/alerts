@@ -42,11 +42,37 @@ class AlertManager
 
 	/**
 	 * Store the messages in the current session.
+	 *
+	 * @return \Illuminate\Support\MessageBag
 	 */
 	public function flash()
 	{
 		$this->session->flash($this->getSessionKey(), $this->alerts->getMessages());
 
+		return $this->alerts;
+	}
+
+	/**
+	 * Add an alert
+	 *
+	 * @param string $key		Alert key - must be one of the accepted alert keys, otherwise it will be ignored at the
+	 *                     		other end!
+	 * @param string $message	Message to add - you should trans
+	 *
+	 * @return \Illuminate\Support\MessageBag
+	 */
+	public function add($key, $message)
+	{
+		return $this->alerts->add($key, $message);
+	}
+
+	/**
+	 * Get the current MessageBag
+	 *
+	 * @return \Illuminate\Support\MessageBag
+	 */
+	public function getMessageBag()
+	{
 		return $this->alerts;
 	}
 
@@ -69,7 +95,7 @@ class AlertManager
 
 			foreach ($messages as $message)
 			{
-				$this->alerts->add($method, $this->translateMessage($message, isset($args[1]) ? $this->arrayify($args[1]) : []));
+				$this->add($method, $this->translateMessage($message, isset($args[1]) ? $this->arrayify($args[1]) : []));
 			}
 
 			return $this;
