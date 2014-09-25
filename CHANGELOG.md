@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+2.0.0 (2014-09-26)
+------------------
+
+* complete rewrite, now supports (only) Laravel v5.0
+* psr-4 autoloading
+* replaced AlertMessageBag class with an AlertManager class
+* rewrote AlertComposer
+* changed blade templates to new L5 raw echo syntax
+* rewrote unit tests
+
 1.2.2 (2014-07-03)
 ------------------
 
