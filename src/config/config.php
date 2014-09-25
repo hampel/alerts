@@ -28,12 +28,12 @@ return array(
 	| For example, to configure alerts for Bootstrap, change the config to match
 	| the following:
 	|
-	| 'levels' => array(
+	| 'levels' => [
 	|     'info' => 'info',
 	|     'warning' => 'warning',
 	|     'error' => 'danger',
 	|     'success' => 'success'
-	| ),
+	| ],
 	|
 	| The default values provided are intended to work with Foundation, with
 	| 	info = a "secondary" alert
@@ -43,12 +43,12 @@ return array(
 	|
 	*/
 
-	'level_map' => array(
+	'level_map' => [
 		'info' => 'secondary',
 		'warning' => '',
 		'error' => 'alert',
 		'success' => 'success',
-	),
+	],
 
 	/*
 	|--------------------------------------------------------------------------
