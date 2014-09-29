@@ -48,6 +48,10 @@ class AlertComposer
 				$view->with($variable_name, $this->renderView($messages));
 			}
 		}
+		else
+		{
+			$view->with($variable_name, '');
+		}
 	}
 
 	protected function renderView($messages)
