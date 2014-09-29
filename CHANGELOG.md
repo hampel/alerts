@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2.0.1 (2014-09-29)
+------------------
+
+* handle situation where no alerts are actually raised
+
 2.0.0 (2014-09-26)
 ------------------
 
