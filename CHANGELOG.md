@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2.1.0 (2015-02-13)
+------------------
+
+* now fully compatible with Laravel 5.0 release
+
 2.0.2 (2014-10-15)
 ------------------
 
