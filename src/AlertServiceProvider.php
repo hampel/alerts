@@ -40,19 +40,32 @@ class AlertServiceProvider extends ServiceProvider {
 
 	public function boot()
 	{
-		$this->publishes([
-			__DIR__ . '/config/alerts.php' => config_path('alerts.php'),
-		]);
-
-		$this->mergeConfigFrom(
-			__DIR__ . '/config/alerts.php', 'alerts'
-		);
-
-		$this->loadViewsFrom(__DIR__ . '/views', 'alerts');
+		$this->defineConfiguration();
+		$this->defineViews();
 
 		$view_name = $this->app['config']->get('alerts.base_view');
 
 		$this->app['view']->composer($view_name, 'Hampel\Alerts\Composers\AlertComposer');
+	}
+
+	protected function defineConfiguration()
+	{
+		$this->publishes([
+			__DIR__ . '/config/alerts.php' => config_path('alerts.php'),
+		], 'config');
+
+		$this->mergeConfigFrom(
+			__DIR__ . '/config/alerts.php', 'alerts'
+		);
+	}
+
+	protected function defineViews()
+	{
+		$this->publishes([
+			__DIR__ . '/views' => base_path('resources/views/vendor/alerts'),
+		], 'views');
+
+		$this->loadViewsFrom(__DIR__ . '/views', 'alerts');
 	}
 
 	/**
@@ -64,5 +77,4 @@ class AlertServiceProvider extends ServiceProvider {
 	{
 		return array('alerts');
 	}
-
 }
