@@ -16,12 +16,12 @@ Require the package via Composer in your `composer.json`
     :::json
     {
         "require": {
-            "hampel/alerts": "~2.0"
+            "hampel/alerts": "~2.1"
         }
     }
 
-Note that v2 of this package relies on Laravel 5.0, which is still under development - as such, this package should not
-be considered stable yet.
+**Note** v2.0.x of this package was released while Laravel 5.0 was still under development and is not compatible with
+the final release version of Laravel 5.0. You should use v2.1 of the Alerts package for Laravel 5.0 compatibility.
 
 For earlier versions of the Laravel framework, the 1.1 branch will work on Laravel framework versions 4.0.* and 4.1.*,
 while the 1.2 branch is tied to the 4.2.* version of the framework. The functionality between these two branches is
@@ -56,12 +56,12 @@ You may also optionally add an alias entry to the `$aliases` array in the same f
     	'Alert'			  => 'Hampel\Alerts\Facades\Alert',
     ),
 
-If you want to change the default Alert configuration, first publish it using the command:
+If you want to change the default Alert configuration or views, first publish them using the command:
 
     :::bash
-    $ php artisan config:publish hampel/alerts
+    $ php artisan vendor:publish --provider="Hampel\Alerts\AlertServiceProvider"
 
-The config file can then be found in `config/packages/hampel/alerts/config.php`.
+The config file can then be found in `config/alerts.php`, and the views in `resources/views/vendor/alerts`
 
 Usage
 -----
