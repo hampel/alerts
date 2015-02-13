@@ -29,12 +29,12 @@ class AlertComposerTest extends \PHPUnit_Framework_TestCase
 
 		$events->shouldReceive('listen')->once()->with('composing: foo', Mockery::type('Closure'));
 		$container->shouldReceive('make')->once()->with('Hampel\Alerts\Composers\AlertComposer')->andReturn($composer);
-		$config->shouldReceive('get')->once()->with('alerts::session_key')->andReturn('alert_messages');
-		$config->shouldReceive('get')->once()->with('alerts::view_variable')->andReturn('alerts');
+		$config->shouldReceive('get')->once()->with('alerts.session_key')->andReturn('alert_messages');
+		$config->shouldReceive('get')->once()->with('alerts.view_variable')->andReturn('alerts');
 		$session->shouldReceive('has')->once()->with('alert_messages')->andReturn(true);
 		$session->shouldReceive('get')->once()->with('alert_messages')->andReturn(array('success' => ['foo bar']));
-		$config->shouldReceive('get')->once()->with('alerts::alert_template')->andReturn('alert_template');
-		$config->shouldReceive('get')->once()->with('alerts::level_map')->andReturn(['error' => 'alert', 'success' => 'success']);
+		$config->shouldReceive('get')->once()->with('alerts.alert_template')->andReturn('alert_template');
+		$config->shouldReceive('get')->once()->with('alerts.level_map')->andReturn(['error' => 'alert', 'success' => 'success']);
 		$factory->shouldReceive('make')->once()->with('alert_template', Mockery::on(function($data) {
 			$this->assertArrayHasKey('alert_type', $data);
 			$this->assertEquals('success', $data['alert_type']);

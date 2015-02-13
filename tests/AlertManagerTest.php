@@ -11,14 +11,14 @@ class AlertManagerTest extends \PHPUnit_Framework_TestCase
 		$session = Mockery::mock('Illuminate\Session\SessionInterface');
 		$translator = Mockery::mock('Symfony\Component\Translation\TranslatorInterface');
 
-		$config->shouldReceive('get')->once()->with('alerts::level_map')->andReturn(array(
+		$config->shouldReceive('get')->once()->with('alerts.level_map')->andReturn(array(
 			'info' => 'secondary',
 			'warning' => '',
 			'error' => 'alert',
 			'success' => 'success',
 		));
 		$translator->shouldReceive('get')->once()->with('alert.info', [])->andReturn('info alert');
-		$config->shouldReceive('get')->once()->with('alerts::session_key')->andReturn('alert_messages');
+		$config->shouldReceive('get')->once()->with('alerts.session_key')->andReturn('alert_messages');
 		$session->shouldReceive('flash')->once()->with('alert_messages', array('info' => ['info alert']));
 
 		$manager = new AlertManager($config, $session, new MessageBag, $translator);
@@ -37,7 +37,7 @@ class AlertManagerTest extends \PHPUnit_Framework_TestCase
 		$session = Mockery::mock('Illuminate\Session\SessionInterface');
 		$translator = Mockery::mock('Symfony\Component\Translation\TranslatorInterface');
 
-		$config->shouldReceive('get')->times(3)->with('alerts::level_map')->andReturn(array(
+		$config->shouldReceive('get')->times(3)->with('alerts.level_map')->andReturn(array(
 			'info' => 'secondary',
 			'warning' => '',
 			'error' => 'alert',
@@ -46,7 +46,7 @@ class AlertManagerTest extends \PHPUnit_Framework_TestCase
 		$translator->shouldReceive('get')->once()->with('alert.info', [])->andReturn('Info Alert');
 		$translator->shouldReceive('get')->once()->with('Non-translated Error', [])->andReturn('Non-translated Error');
 		$translator->shouldReceive('get')->once()->with('alert.error', ['foo' => 'bar'])->andReturn('Translated Error');
-		$config->shouldReceive('get')->once()->with('alerts::session_key')->andReturn('alert_messages');
+		$config->shouldReceive('get')->once()->with('alerts.session_key')->andReturn('alert_messages');
 		$session->shouldReceive('flash')->once()->with('alert_messages', Mockery::on(function($data) {
 			$this->assertArrayHasKey('info', $data);
 			$this->assertArrayHasKey(0, $data['info']);
