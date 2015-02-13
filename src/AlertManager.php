@@ -124,7 +124,7 @@ class AlertManager
 	 */
 	public function getLevels()
 	{
-		return array_keys($this->config->get('alerts::level_map'));
+		return array_keys($this->config->get('alerts.level_map'));
 	}
 
 	/**
@@ -134,7 +134,7 @@ class AlertManager
 	 */
 	public function getSessionKey()
 	{
-		return $this->config->get('alerts::session_key');
+		return $this->config->get('alerts.session_key');
 	}
 }
 

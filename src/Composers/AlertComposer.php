@@ -79,22 +79,22 @@ class AlertComposer
 
 	protected function getSessionKey()
 	{
-		return $this->config->get('alerts::session_key');
+		return $this->config->get('alerts.session_key');
 	}
 
 	protected function getViewVariable()
 	{
-		return $this->config->get('alerts::view_variable');
+		return $this->config->get('alerts.view_variable');
 	}
 
 	protected function getLevelMap()
 	{
-		return $this->config->get('alerts::level_map');
+		return $this->config->get('alerts.level_map');
 	}
 
 	protected function getAlertTemplate()
 	{
-		return $this->config->get('alerts::alert_template');
+		return $this->config->get('alerts.alert_template');
 	}
 
 }

@@ -20,12 +20,6 @@ class AlertServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->package('hampel/alerts', 'alerts', __DIR__);
-
-		$view_name = $this->app['config']->get('alerts::base_view');
-
-		$this->app['view']->composer($view_name, 'Hampel\Alerts\Composers\AlertComposer');
-
 		// Register the AlertsMessageBag class.
 		$this->app->bindShared('alerts', function($app)
 		{
@@ -42,6 +36,23 @@ class AlertServiceProvider extends ServiceProvider {
 		{
 			return new AlertComposer($app['config'], $app['session.store'], $app['view']);
 		});
+	}
+
+	public function boot()
+	{
+		$this->publishes([
+			__DIR__ . '/config/alerts.php' => config_path('alerts.php'),
+		]);
+
+		$this->mergeConfigFrom(
+			__DIR__ . '/config/alerts.php', 'alerts'
+		);
+
+		$this->loadViewsFrom(__DIR__ . '/views', 'alerts');
+
+		$view_name = $this->app['config']->get('alerts.base_view');
+
+		$this->app['view']->composer($view_name, 'Hampel\Alerts\Composers\AlertComposer');
 	}
 
 	/**
