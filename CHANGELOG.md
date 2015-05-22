@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2.1.2 (2015-05-22)
+------------------
+
+* removed redundant closing php tags
+
 2.1.1 (2015-02-13)
 ------------------
 
@@ -31,6 +36,11 @@ CHANGELOG
 * changed blade templates to new L5 raw echo syntax
 * rewrote unit tests
 
+1.2.3 (2015-05-22)
+------------------
+
+* removed redundant closing php tags
+
 1.2.2 (2014-07-03)
 ------------------
 
@@ -47,6 +57,11 @@ CHANGELOG
 
 * make unit tests 4.2 compatible
 * framework minimum version now 4.2
+
+1.1.5 (2015-05-22)
+------------------
+
+* removed redundant closing php tags
 
 1.1.4 (2014-07-03)
 ------------------
