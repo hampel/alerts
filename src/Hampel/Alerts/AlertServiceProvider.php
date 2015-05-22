@@ -61,5 +61,4 @@ class AlertServiceProvider extends ServiceProvider {
 	{
 		return array('alerts');
 	}
-
 }
