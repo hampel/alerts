@@ -10,6 +10,3 @@ class Alert extends Facade {
     protected static function getFacadeAccessor() { return 'alerts'; }
 
 }
-
-?>
- 

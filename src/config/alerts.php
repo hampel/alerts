@@ -140,5 +140,3 @@ return array(
 	'alert_template' => 'alerts::templates.foundation',
 
 );
-
-?>

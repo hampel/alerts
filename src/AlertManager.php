@@ -137,6 +137,3 @@ class AlertManager
 		return $this->config->get('alerts.session_key');
 	}
 }
-
-?>
- 
