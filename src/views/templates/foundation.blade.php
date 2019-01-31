@@ -1,4 +1,6 @@
-<div data-alert class="alert-box {{{ $alert_type }}} radius">
-	{{{ $alert_text }}}
-	<a href="#" class="close">&times;</a>
+<div class="callout {{{ $alert_type }}} radius" data-closable>
+	{{ $alert_text }}
+	<button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+		<span aria-hidden="true">&times;</span>
+	</button>
 </div>

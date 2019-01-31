@@ -4,7 +4,7 @@ Alerts for Laravel
 This package provides session-driven alerts for Laravel and provides alert templates for both Bootstrap and Foundation
 based front-end frameworks.
 
-By [Simon Hampel](http://hampelgroup.com/).
+By [Simon Hampel](mailto:simon@hampelgroup.com).
 
 Installation
 ------------

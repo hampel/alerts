@@ -5,7 +5,7 @@
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Session\SessionInterface;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\Config\Repository;
 
 class AlertComposer
@@ -27,7 +27,7 @@ class AlertComposer
 	 */
 	protected $factory;
 
-	function __construct(Repository $config, SessionInterface $session, Factory $factory)
+	function __construct(Repository $config, Session $session, Factory $factory)
 	{
 		$this->config = $config;
 		$this->session = $session;

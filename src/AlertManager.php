@@ -2,10 +2,10 @@
 
 use BadMethodCallException;
 use BadFunctionCallException;
-use Illuminate\Session\SessionInterface;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Support\MessageBag;
-use Symfony\Component\Translation\TranslatorInterface;
+use Illuminate\Contracts\Translation\Translator;
 
 class AlertManager 
 {
@@ -32,7 +32,7 @@ class AlertManager
 	protected $translator;
 
 
-	function __construct(Repository $config, SessionInterface $session, MessageBag $alerts, TranslatorInterface $translator)
+	function __construct(Repository $config, Session $session, MessageBag $alerts, Translator $translator)
 	{
 		$this->config = $config;
 		$this->session = $session;

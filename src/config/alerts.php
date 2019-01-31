@@ -29,23 +29,29 @@ return array(
 	| the following:
 	|
 	| 'levels' => [
+	|     'primary' => 'primary',
+	|     'secondary' => 'secondary',
 	|     'info' => 'info',
 	|     'warning' => 'warning',
 	|     'error' => 'danger',
 	|     'success' => 'success'
+	|     'light' => 'light'
+	|     'dark' => 'dark'
 	| ],
 	|
 	| The default values provided are intended to work with Foundation, with
-	| 	info = a "secondary" alert
-	| 	warning = a "standard" alert
+	| 	info = a "primary" alert
+	| 	warning = a "warning" alert
 	| 	error = an "alert" alert
 	| 	success = a "success" alert
 	|
 	*/
 
 	'level_map' => [
-		'info' => 'secondary',
-		'warning' => '',
+		'primary' => 'primary',
+		'secondary' => 'secondary',
+		'info' => 'primary',
+		'warning' => 'warning',
 		'error' => 'alert',
 		'success' => 'success',
 	],

@@ -3,32 +3,42 @@
 use Mockery;
 use Illuminate\View\View;
 use Illuminate\View\Factory;
+use PHPUnit\Framework\TestCase;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\View\Engine;
+use Illuminate\View\ViewFinderInterface;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\View\Engines\EngineResolver;
 
-class AlertComposerTest extends \PHPUnit_Framework_TestCase
+class AlertComposerTest extends TestCase
 {
+	use \Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+
 	public function testViewComposer()
 	{
-		$resolver = Mockery::mock('Illuminate\View\Engines\EngineResolver');
-		$finder = Mockery::mock('Illuminate\View\ViewFinderInterface');
-		$events = Mockery::mock('Illuminate\Contracts\Events\Dispatcher');
+		$resolver = Mockery::mock(EngineResolver::class);
+		$finder = Mockery::mock(ViewFinderInterface::class);
+		$events = Mockery::mock(Dispatcher::class);
 
 		$view_factory = new Factory($resolver, $finder, $events);
 
-		$container = Mockery::mock('Illuminate\Container\Container');
+		$container = Mockery::mock(Container::class);
 		$view_factory->setContainer($container);
 
-		$config = Mockery::mock('Illuminate\Contracts\Config\Repository');
-		$session = Mockery::mock('Illuminate\Session\SessionInterface');
+		$config = Mockery::mock(Repository::class);
+		$session = Mockery::mock(Session::class);
 
-		$factory = Mockery::mock('Illuminate\Contracts\View\Factory');
-		$subview = Mockery::mock('Illuminate\View\View');
+		$factory = Mockery::mock(\Illuminate\Contracts\View\Factory::class);
+		$subview = Mockery::mock(View::class);
 
 		$composer = new AlertComposer($config, $session, $factory);
 
-		$engine = Mockery::mock('Illuminate\View\Engines\EngineInterface');
+		$engine = Mockery::mock(Engine::class);
 
 		$events->shouldReceive('listen')->once()->with('composing: foo', Mockery::type('Closure'));
-		$container->shouldReceive('make')->once()->with('Hampel\Alerts\Composers\AlertComposer')->andReturn($composer);
+		$container->shouldReceive('make')->once()->with(AlertComposer::class)->andReturn($composer);
 		$config->shouldReceive('get')->once()->with('alerts.session_key')->andReturn('alert_messages');
 		$config->shouldReceive('get')->once()->with('alerts.view_variable')->andReturn('alerts');
 		$session->shouldReceive('has')->once()->with('alert_messages')->andReturn(true);
@@ -46,7 +56,7 @@ class AlertComposerTest extends \PHPUnit_Framework_TestCase
 
 		$view = new View($view_factory, $engine, 'view', 'path', ['foo' => 'bar']);
 
-		$callback = $view_factory->composer('foo', 'Hampel\Alerts\Composers\AlertComposer');
+		$callback = $view_factory->composer('foo', AlertComposer::class);
 		$callback = $callback[0];
 
 		$callback($view);
@@ -57,7 +67,4 @@ class AlertComposerTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('rendered alert', $viewdata['alerts']);
 	}
 
-	public function tearDown() {
-		Mockery::close();
-	}
 }

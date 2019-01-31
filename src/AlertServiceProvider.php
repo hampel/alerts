@@ -1,17 +1,11 @@
 <?php namespace Hampel\Alerts;
 
+use View;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ServiceProvider;
 use Hampel\Alerts\Composers\AlertComposer;
 
 class AlertServiceProvider extends ServiceProvider {
-
-	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
-	 */
-	protected $defer = false;
 
 	/**
 	 * Register the service provider.
@@ -21,31 +15,23 @@ class AlertServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		// Register the AlertsMessageBag class.
-		$this->app->bindShared('alerts', function($app)
+		$this->app->singleton(AlertManager::class, function($app)
 		{
 			return new AlertManager($app['config'], $app['session.store'], new MessageBag, $app['translator']);
 		});
 
-		$this->app->bind('Hampel\Alerts\AlertManager', function($app)
-		{
-			return $app['alerts'];
-		});
-
-		// Register the AlertComposer class.
-		$this->app->bind('Hampel\Alerts\Composers\AlertComposer', function($app)
-		{
-			return new AlertComposer($app['config'], $app['session.store'], $app['view']);
-		});
+//		// Register the AlertComposer class.
+//		$this->app->bind(AlertComposer::class, function($app)
+//		{
+//			return new AlertComposer($app['config'], $app['session.store'], $app['view']);
+//		});
 	}
 
 	public function boot()
 	{
 		$this->defineConfiguration();
 		$this->defineViews();
-
-		$view_name = $this->app['config']->get('alerts.base_view');
-
-		$this->app['view']->composer($view_name, 'Hampel\Alerts\Composers\AlertComposer');
+		$this->defineViewComposer();
 	}
 
 	protected function defineConfiguration()
@@ -68,13 +54,8 @@ class AlertServiceProvider extends ServiceProvider {
 		$this->loadViewsFrom(__DIR__ . '/views', 'alerts');
 	}
 
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
+	protected function defineViewComposer()
 	{
-		return array('alerts');
+		View::composer(config('alerts.base_view'), AlertComposer::class);
 	}
 }
