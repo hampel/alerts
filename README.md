@@ -16,23 +16,14 @@ Require the package via Composer in your `composer.json`
     :::json
     {
         "require": {
-            "hampel/alerts": "~2.1"
+            "hampel/alerts": "^2.1"
         }
     }
-
-**Note** v2.0.x of this package was released while Laravel 5.0 was still under development and is not compatible with
-the final release version of Laravel 5.0. You should use v2.1 of the Alerts package for Laravel 5.0 compatibility.
-
-For earlier versions of the Laravel framework, the 1.1 branch will work on Laravel framework versions 4.0.* and 4.1.*,
-while the 1.2 branch is tied to the 4.2.* version of the framework. The functionality between these two branches is
-identical - it is only the unit tests which actually differ between the versions.
 
 Run Composer to update the new requirement.
 
     :::bash
     $ composer update
-
-The package is built to work with the Laravel 5 Framework.
 
 Open your Laravel config file `config/app.php` and add the following service providers in the `$providers` array, if
 they don't already exist:
