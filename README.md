@@ -1,6 +1,11 @@
 Alerts for Laravel
 ==================
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/hampel/alerts.svg?style=flat-square)](https://packagist.org/packages/hampel/alerts)
+[![Total Downloads](https://img.shields.io/packagist/dt/hampel/alerts.svg?style=flat-square)](https://packagist.org/packages/hampel/alerts)
+[![Open Issues](https://img.shields.io/bitbucket/issues/hampel/alerts.svg?style=flat-square)](https://bitbucket.org/hampel/alerts/issues)
+[![License](https://img.shields.io/packagist/l/hampel/alerts.svg?style=flat-square)](https://packagist.org/packages/hampel/alerts)
+
 This package provides session-driven alerts for Laravel and provides alert templates for both Bootstrap and Foundation
 based front-end frameworks.
 
