@@ -37,11 +37,11 @@ class AlertServiceProvider extends ServiceProvider {
 	protected function defineConfiguration()
 	{
 		$this->publishes([
-			__DIR__ . '/config/alerts.php' => config_path('alerts.php'),
+            __DIR__ . '/../config/alerts.php' => config_path('alerts.php'),
 		], 'config');
 
 		$this->mergeConfigFrom(
-			__DIR__ . '/config/alerts.php', 'alerts'
+			__DIR__ . '/../config/alerts.php', 'alerts'
 		);
 	}
 
