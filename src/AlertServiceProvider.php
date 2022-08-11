@@ -47,6 +47,10 @@ class AlertServiceProvider extends ServiceProvider {
 
 	protected function defineViews()
 	{
+		$this->publishes([
+			__DIR__ . '/../views' => resource_path('views/vendor/alerts'),
+		], 'views');
+
 		$this->loadViewsFrom(__DIR__ . '/../views', 'alerts');
 	}
 
