@@ -25,6 +25,10 @@ class AlertServiceProvider extends ServiceProvider {
 //		{
 //			return new AlertComposer($app['config'], $app['session.store'], $app['view']);
 //		});
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/alerts.php', 'alerts'
+        );
 	}
 
 	public function boot()
@@ -39,10 +43,6 @@ class AlertServiceProvider extends ServiceProvider {
 		$this->publishes([
             __DIR__ . '/../config/alerts.php' => config_path('alerts.php'),
 		], 'config');
-
-		$this->mergeConfigFrom(
-			__DIR__ . '/../config/alerts.php', 'alerts'
-		);
 	}
 
 	protected function defineViews()
