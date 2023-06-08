@@ -14,43 +14,9 @@ By [Simon Hampel](mailto:simon@hampelgroup.com)
 Installation
 ------------
 
-The recommended way of installing the Alerts package is through [Composer](http://getcomposer.org):
+To install through composer, run the following command:
 
-Require the package via Composer in your `composer.json`
-
-    :::json
-    {
-        "require": {
-            "hampel/alerts": "^2.1"
-        }
-    }
-
-Run Composer to update the new requirement.
-
-    :::bash
-    $ composer update
-
-Open your Laravel config file `config/app.php` and add the following service providers in the `$providers` array, if
-they don't already exist:
-
-    :::php
-    "providers" => array(
-
-        ...
-
-    	'Hampel\Alerts\AlertServiceProvider',
-
-    ),
-
-You may also optionally add an alias entry to the `$aliases` array in the same file for the Alert facade:
-
-    :::php
-    "aliases" => array(
-
-    	...
-
-    	'Alert'			  => 'Hampel\Alerts\Facades\Alert',
-    ),
+`composer require hampel/alerts`
 
 If you want to change the default Alert configuration or views, first publish them using the command:
 
