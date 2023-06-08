@@ -20,8 +20,9 @@ To install through composer, run the following command:
 
 If you want to change the default Alert configuration or views, first publish them using the command:
 
-    :::bash
-    $ php artisan vendor:publish --provider="Hampel\Alerts\AlertServiceProvider"
+```bash
+$ php artisan vendor:publish --provider="Hampel\Alerts\AlertServiceProvider"
+```
 
 The config file can then be found in `config/alerts.php`, and the views in `resources/views/vendor/alerts`
 
@@ -42,46 +43,51 @@ a configurable variable.
 
 We can easily add alerts to the AlertManager using the built-in functionality:
 
-    :::php
-    Alert::add('error', 'An error message');
+```php
+Alert::add('error', 'An error message');
+```
 
 There are four alert levels provided by default: `info`, `warning`, `error`, `success`. Note that any alert level passed
 to the add function which is not in the configured list of alert levels, will be ignored when rendering the view.
 
 You can add a message to the AlertManager using a shorthand function corresponding to the configured alert levels:
 
-    :::php
-    Alert::error('An error message');
-    Alert::success('Operation succeeded');
+```php
+Alert::error('An error message');
+Alert::success('Operation succeeded');
+```
 
 If you prefer to use the language translation files for your messages, you can simply specify a translation key and the
 AlertManager will substitute the corresponding language entry and optionally apply any replacements too. Note that this
 only works if you use the shorthand functions to add your messages.
 
-    :::php
-    Alert::success('auth.login.success');
-    Alert::error('validation.accepted', array('attribute' => 'terms'));
+```php
+Alert::success('auth.login.success');
+Alert::error('validation.accepted', array('attribute' => 'terms'));
+```
 
 Alternatively, you could apply the translation yourself:
 
-    :::php
-    Alert::add('success', Lang::get('auth.login.success'));
-    Alert::error(Lang::get('validation.accepted', array('attribute' => 'terms')));
+```php
+Alert::add('success', Lang::get('auth.login.success'));
+Alert::error(Lang::get('validation.accepted', array('attribute' => 'terms')));
+```
 
 You can retrieve the underlying MessageBag implementation and merge an existing MessageBag.
 
-    :::php
-    $mybag = new MesageBag();
-    // add messages to your messagebag
+```php
+$mybag = new MesageBag();
+// add messages to your messagebag
 
-    // now get the alert message bag
-    $alerts = Alert::getMessageBag();
+// now get the alert message bag
+$alerts = Alert::getMessageBag();
 
-    // merge in our messages
-    $alerts->merge($mybag);
+// merge in our messages
+$alerts->merge($mybag);
 
-    // flash the messages to the session
-    Alert::flash();
+// flash the messages to the session
+Alert::flash();
+```
 
 To pass the alert messages to a view response, you will need to flash the data to the session.
 
@@ -90,17 +96,18 @@ you automatically, or you could do it as part of a redirect response. If not usi
 sure you specify the name of the session key used in the config file `'alerts::session_key'`, or use the helper function
 `Alerts::getSessionKey()`:
 
-    :::php
-    // flash the messages to the session - this is the easiest way to do it
-    Alert::success('Operation succeeded')->flash();
+```php
+// flash the messages to the session - this is the easiest way to do it
+Alert::success('Operation succeeded')->flash();
 
-    // alternatively, return a redirect response and let Laravel flash the messages
-    return Redirect::to('myroute')->with(Alert::getSessionKey(), Alert::error('There was a problem')->getMessageBag()->getMessages());
+// alternatively, return a redirect response and let Laravel flash the messages
+return Redirect::to('myroute')->with(Alert::getSessionKey(), Alert::error('There was a problem')->getMessageBag()->getMessages());
 
-    // you can always just do it all manually and not use the AlertManager at all!
-    $messages = new MessageBag;
-    $messages->add('info', Lang::get('something.happened.info'));
-    Session::flash(Config::get('alerts::session_key', $messages->getMessages());
+// you can always just do it all manually and not use the AlertManager at all!
+$messages = new MessageBag;
+$messages->add('info', Lang::get('something.happened.info'));
+Session::flash(Config::get('alerts::session_key', $messages->getMessages());
+```
 
 The package provides a view composer which automatically renders alerts whenever the view is called. There are several
 ways to do this.
@@ -109,8 +116,9 @@ By default, there is a Blade template `alerts.blade.php` which you can include i
 configured by default to watch this view and render the alerts whenever this view is rendered. To use, simply `@include`
 the template in your view:
 
-    :::php
-    @include('alerts::alerts')
+```php
+@include('alerts::alerts')
+```
 
 If you prefer to do it yourself, you can change the configuration of the view composer to watch a different view,
 perhaps even your `layouts.base` view. The composer will generate the alert data and bind it to the configured variable
