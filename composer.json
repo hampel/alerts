@@ -1,6 +1,6 @@
 {
     "name": "hampel/alerts",
-    "description": "Package for managing Laravel session messages and alerts in view responses",
+    "description": "Laravel package for managing session messages and alerts in view responses",
 	"homepage" : "https://bitbucket.org/hampel/alerts",
 	"authors": [{
 		"name": "Simon Hampel",
